@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM, {render} from 'react-dom';
+import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -30,12 +30,11 @@ class EDRComponent extends React.Component {
     addTrace = () => {
         console.log("11001");
         this.setState({
-            traces: [...this.state.traces, 'traceName' ],
+            traces: [...this.state.traces, 'traceName'],
         });
     }
 
     render() {
-        // console.log("11001");
         return (
             <>
                 <h1>
@@ -51,13 +50,13 @@ class EDRComponent extends React.Component {
     };
 }
 
-    const pageContent = (
-        <div className="App">
-            <EDRComponent/>
-        </div>
-    );
+const pageContent = (
+    <div className="App">
+        <EDRComponent />
+    </div>
+);
 
-    ReactDOM.render(pageContent, document.getElementById('root'));
+ReactDOM.render(pageContent, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
