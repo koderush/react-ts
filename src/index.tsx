@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM, {render} from 'react-dom';
 import './index.css';
-import './App.css';
 import * as serviceWorker from './serviceWorker';
 
 interface EDRState {
@@ -29,13 +28,14 @@ class EDRComponent extends React.Component {
     };
 
     addTrace = () => {
+        console.log("11001");
         this.setState({
-            traces: [...this.state.traces, "new trace"],
+            traces: [...this.state.traces, 'traceName' ],
         });
     }
 
     render() {
-        console.log("11001");
+        // console.log("11001");
         return (
             <>
                 <h1>
@@ -44,7 +44,7 @@ class EDRComponent extends React.Component {
                 {this.state.subtitle && <h2>Subtitle: {this.state.subtitle}</h2>}
                 {this.getTracesSize() > 0 ? <p>We have {this.state.traces.length} traces</p> :
                     <p>We have no traces.</p>}
-                <button id="add-trace" onClick={this.addTrace}>Add Trace</button>
+                <button className="button" onClick={this.addTrace}>Add Trace</button>
                 <ol>{this.getTraceList()}</ol>
             </>
         )
