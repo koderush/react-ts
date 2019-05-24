@@ -22,7 +22,10 @@ class EDRComponent extends React.Component {
     getTraceList() {
         return (
             <>
-                {this.state.traces.map((trace: string) => <li>{trace}</li>)}
+                {
+                    this.state.traces.map((trace: string, index: number) =>
+                        <li key={`k-${index}`}>{trace}</li>)
+                }
             </>
         )
     };
