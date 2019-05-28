@@ -1,6 +1,6 @@
-import {createStore, combineReducers} from "redux";
-import {devToolsEnhancer} from 'redux-devtools-extension';
-
+import {createStore, combineReducers, applyMiddleware} from "redux";
+import {composeWithDevTools} from 'redux-devtools-extension';
+import thunkMiddleware from "redux-thunk";
 import {TraceReducer} from "./reducers";
 
 const rootReducer = combineReducers({
@@ -10,7 +10,10 @@ const rootReducer = combineReducers({
 export type AppState = ReturnType<typeof rootReducer>;
 
 export default function configureStore() {
-    const store = createStore(rootReducer, devToolsEnhancer({}));
+    const middlewares = [thunkMiddleware];
+    const middleWareEnhancer = applyMiddleware(...middlewares);
+
+    const store = createStore(rootReducer, composeWithDevTools(middleWareEnhancer));
 
     return store;
 }

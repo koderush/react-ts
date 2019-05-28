@@ -3,11 +3,12 @@ import {connect} from "react-redux";
 import './index.css';
 import {TraceState} from "./store/types";
 import {AppState} from "./store";
-import {AddTraceAction, RemoveTraceAction} from "./store/actions";
+import {AddTraceActionCreator, RemoveTraceActionCreator, thunkAddTrace} from "./store/actions";
 
 interface AppProps {
-    addTrace: typeof AddTraceAction;
-    removeTrace: typeof RemoveTraceAction;
+    addTrace: typeof AddTraceActionCreator;
+    removeTrace: typeof RemoveTraceActionCreator;
+    addAsynchTrace: any;
     trace: TraceState;
 }
 
@@ -30,6 +31,8 @@ class App extends React.Component<AppProps> {
     addOneTrace = () => {
         console.log('addOneTrace()');
         this.props.addTrace('new trace');
+
+        this.props.addAsynchTrace();
     }
 
     removeOneTrace = () => {
@@ -63,8 +66,9 @@ const mapStateToProps = (appState: AppState) => ({
 })
 
 const mapDispatchToProps = {
-    addTrace: AddTraceAction,
-    removeTrace: RemoveTraceAction,
+    addTrace: AddTraceActionCreator,
+    removeTrace: RemoveTraceActionCreator,
+    addAsynchTrace: thunkAddTrace,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
