@@ -1,14 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
+import { Action } from "redux";
+import { ThunkAction } from "redux-thunk";
 import './index.css';
 import {TraceState} from "./store/types";
 import {AppState} from "./store";
-import {AddTraceActionCreator, RemoveTraceActionCreator, thunkAddTrace} from "./store/actions";
+import {AddTraceActionCreator, RemoveTraceActionCreator, AsyncActionCreator} from "./store/actions";
 
 interface AppProps {
     addTrace: typeof AddTraceActionCreator;
     removeTrace: typeof RemoveTraceActionCreator;
-    addAsynchTrace: any;
+    addAsyncInfo: any;// ThunkAction<void, AppState, null, Action<string>>;
     trace: TraceState;
 }
 
@@ -31,8 +33,6 @@ class App extends React.Component<AppProps> {
     addOneTrace = () => {
         console.log('addOneTrace()');
         this.props.addTrace('new trace');
-
-        this.props.addAsynchTrace();
     }
 
     removeOneTrace = () => {
@@ -40,6 +40,10 @@ class App extends React.Component<AppProps> {
         this.props.removeTrace();
     }
 
+    addSomeAsyncInfo = () => {
+        console.log('addAsyncInfo');
+        this.props.addAsyncInfo();
+    }
     render() {
         return (
             <>
@@ -53,6 +57,9 @@ class App extends React.Component<AppProps> {
                 </p>
                 <p>
                     <button className="button" onClick={this.removeOneTrace}>Remove Trace</button>
+                </p>
+                <p>
+                    <button className="button" onClick={this.addSomeAsyncInfo}>Add Async Info</button>
                 </p>
                 <ol>{this.getTraceList()}</ol>
             </>
@@ -68,7 +75,7 @@ const mapStateToProps = (appState: AppState) => ({
 const mapDispatchToProps = {
     addTrace: AddTraceActionCreator,
     removeTrace: RemoveTraceActionCreator,
-    addAsynchTrace: thunkAddTrace,
+    addAsyncInfo: AsyncActionCreator,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
