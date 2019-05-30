@@ -7,7 +7,25 @@ const initialMemoState: MemoState = {
 };
 
 const initialRigInfoState: RigInfoState = {
-    info: "N/A",
+    info: {
+        wellGuid: "",
+        name: "",
+        numGovt: "",
+        timeZone: "",
+        operator: "",
+        dataHubOperatorIdentifier: 0,
+        spudTime: 0,
+        releaseTime: 0,
+        groundElevation: "",
+        wellCrs: "",
+        tightHoleStatus: "",
+        status: "",
+        wellSiteLocale: {},
+        wellVisitUids: {},
+        wellBoreUids: {},
+        wellLocationUid: "",
+        uid: {},
+    },
 };
 
 export function MemoReducer(
@@ -21,7 +39,7 @@ export function MemoReducer(
             };
         case REMOVE_MEMO:
             return {
-                memos: state.memos.slice(0,state.memos.length - 1),
+                memos: state.memos.slice(0, state.memos.length - 1),
             };
         default:
             return state;
@@ -35,7 +53,7 @@ export function RigInfoReducer(
     switch (action.type) {
         case GET_RIG_INFO:
             return {
-                info: action.payload,
+                info: action.payload.wellSite,
             };
         default:
             return state;

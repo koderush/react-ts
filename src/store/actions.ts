@@ -1,8 +1,9 @@
-import {GET_MEMO, REMOVE_MEMO, GET_RIG_INFO, MemoType, MemoResponseType} from "./types";
+import {GET_MEMO, REMOVE_MEMO, GET_RIG_INFO} from "./types";
 import {Action} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppState} from "./index";
 import {pdsaGetMemos, pdsaGetRigInfo} from "../connector/pdsa";
+import {MemoResponseType, RigActivityResponseType} from "../connector/pdsaTypes";
 
 export function GetMemoActionCreator(memoResponse: MemoResponseType) {
     return {
@@ -18,7 +19,7 @@ export function RemoveMemoActionCreator() {
 }
 
 
-export function GetRigInfoActionCreator(info: string) {
+export function GetRigInfoActionCreator(info: RigActivityResponseType) {
     return {
         type: GET_RIG_INFO,
         payload: info,
@@ -27,7 +28,7 @@ export function GetRigInfoActionCreator(info: string) {
 
 export function GetMemoAsyncDispatchCreator(): ThunkAction<void, AppState, null, Action<string>> {
     return async dispatch => {
-        const asyncResp:string = await pdsaGetMemos();
+        const asyncResp: string = await pdsaGetMemos();
 
         const memoResponse: MemoResponseType = JSON.parse(asyncResp);
 
@@ -39,9 +40,12 @@ export function GetMemoAsyncDispatchCreator(): ThunkAction<void, AppState, null,
 
 export function GetRigInfoAsyncDispatchCreator(): ThunkAction<void, AppState, null, Action<string>> {
     return async dispatch => {
-        const asyncResp = await pdsaGetRigInfo();
+        const asyncResp:string = await pdsaGetRigInfo();
+
+        const rigActivityResponse: RigActivityResponseType = JSON.parse(asyncResp);
+
         dispatch(
-            GetRigInfoActionCreator(asyncResp)
+            GetRigInfoActionCreator(rigActivityResponse)
         );
     }
 };

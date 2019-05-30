@@ -1,4 +1,5 @@
-// Memos
+import {MemoResponseType, MemoType, RigActivityResponseType, WellSiteType} from "../connector/pdsaTypes";
+
 export const GET_MEMO = "ADD_MEMO";
 export const REMOVE_MEMO = "REMOVE_MEMO";
 
@@ -22,23 +23,10 @@ export const GET_RIG_INFO = "GET_RIG_INFO";
 
 export interface RigInfoActionType {
     type: typeof GET_RIG_INFO;
-    payload: string;
+    payload: RigActivityResponseType;
 }
 
 export interface RigInfoState {
-    info: string;
+    info: WellSiteType;
 }
 
-export interface MemoType {
-    identifier: string;
-    creationTime: number;
-    displayTime: number;
-    text: string;
-}
-
-export interface MemosType {
-    memos: MemoType[];
-}
-export interface MemoResponseType {
-    data: MemosType;
-}

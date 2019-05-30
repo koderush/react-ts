@@ -1,13 +1,14 @@
 import React from 'react';
 import {connect} from "react-redux";
 import './index.css';
-import {RigInfoState, MemoState, MemoType} from "./store/types";
+import {RigInfoState, MemoState} from "./store/types";
 import {AppState} from "./store";
 import {
     RemoveMemoActionCreator,
     GetMemoAsyncDispatchCreator,
     GetRigInfoAsyncDispatchCreator
 } from "./store/actions";
+import {MemoType} from "./connector/pdsaTypes";
 
 interface AppProps {
     removeMemo: typeof RemoveMemoActionCreator;
@@ -41,11 +42,18 @@ class App extends React.Component<AppProps> {
     render() {
         return (
             <>
-                <p>
-                    Rig Info: {this.props.rigInfo.info}
-                </p>
-                {this.getMemosSize() > 0 ? <p>We have {this.props.memo.memos.length} memos</p> :
-                    <p>We have no memos.</p>}
+                <div>
+                    <p>Rig Information: </p>
+                    <ul>
+                        <li>Well Name: {this.props.rigInfo.info.name}</li>
+                        <li>Time Zone: {this.props.rigInfo.info.timeZone}</li>
+                        <li>Operator: {this.props.rigInfo.info.operator}</li>
+                        <li>Status: {this.props.rigInfo.info.status}</li>
+                    </ul>
+                </div>
+
+                <p>We have {this.props.memo.memos.length} memos</p>
+
                 <p>
                     <button className="button" onClick={this.props.getMemo}>Get Memo</button>
                 </p>
