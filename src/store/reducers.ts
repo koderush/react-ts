@@ -1,25 +1,44 @@
 import {
-    ADD_TRACE, REMOVE_TRACE, TraceActionTypes, TraceState
+    GET_MEMO, REMOVE_MEMO, MemoActionTypes, MemoState, RigInfoState, RigInfoActionType, GET_RIG_INFO
 } from "./types";
 
-const initialState: TraceState = {
-    traces: ["Bit Depth", "Flow"],
+const initialMemoState: MemoState = {
+    memos: [],
 };
 
-export function TraceReducer(
-    state = initialState,
-    action: TraceActionTypes
-): TraceState {
+const initialRigInfoState: RigInfoState = {
+    info: "N/A",
+};
+
+export function MemoReducer(
+    state = initialMemoState,
+    action: MemoActionTypes
+): MemoState {
     switch (action.type) {
-        case ADD_TRACE:
+        case GET_MEMO:
             return {
-                traces: [...state.traces, action.payload],
+                memos: action.payload.data.memos,
             };
-        case REMOVE_TRACE:
+        case REMOVE_MEMO:
             return {
-                traces: state.traces.slice(0,state.traces.length - 1),
+                memos: state.memos.slice(0,state.memos.length - 1),
             };
         default:
             return state;
     }
 }
+
+export function RigInfoReducer(
+    state = initialRigInfoState,
+    action: RigInfoActionType
+): RigInfoState {
+    switch (action.type) {
+        case GET_RIG_INFO:
+            return {
+                info: action.payload,
+            };
+        default:
+            return state;
+    }
+}
+

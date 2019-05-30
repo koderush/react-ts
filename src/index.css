@@ -8,7 +8,7 @@
 }
 
 .button {
-  background-color: #4CAF50; /* Green */
+  background-color: #5caf3e; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -16,14 +16,25 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  width: 200px;
+  width: 300px;
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  margin: 20px;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  background: #3399ff;
+  /*padding: 1px;*/
+}
+
+ul li {
+  background: #cce5ff;
+  margin: 1px;
 }

@@ -1,67 +1,58 @@
 import React from 'react';
 import {connect} from "react-redux";
-import { Action } from "redux";
-import { ThunkAction } from "redux-thunk";
 import './index.css';
-import {TraceState} from "./store/types";
+import {RigInfoState, MemoState, MemoType} from "./store/types";
 import {AppState} from "./store";
-import {AddTraceActionCreator, RemoveTraceActionCreator, AsyncActionCreator} from "./store/actions";
+import {
+    RemoveMemoActionCreator,
+    GetMemoAsyncDispatchCreator,
+    GetRigInfoAsyncDispatchCreator
+} from "./store/actions";
 
 interface AppProps {
-    addTrace: typeof AddTraceActionCreator;
-    removeTrace: typeof RemoveTraceActionCreator;
-    addAsyncInfo: any;// ThunkAction<void, AppState, null, Action<string>>;
-    trace: TraceState;
+    removeMemo: typeof RemoveMemoActionCreator;
+    getMemo: any;
+    getRigInfo: any;
+    memo: MemoState;
+    rigInfo: RigInfoState;
 }
 
 class App extends React.Component<AppProps> {
-    getTracesSize() {
-        return this.props.trace.traces.length;
+    getMemosSize() {
+        return this.props.memo.memos.length;
     }
 
-    getTraceList() {
+    renderMemoList() {
         return (
             <>
                 {
-                    this.props.trace.traces.map((trace: string, index: number) =>
-                        <li key={`k-${index}`}>{trace}</li>)
+                    this.props.memo.memos.map((memo: MemoType, index: number) =>
+                        <li key={`k-${index}`}>{memo.identifier}, {memo.text}, {memo.creationTime}</li>)
                 }
             </>
         )
     };
 
-    addOneTrace = () => {
-        console.log('addOneTrace()');
-        this.props.addTrace('new trace');
+    componentDidMount() {
+        // This is to demo automatically get rig info when the page is loaded.
+        this.props.getRigInfo();
     }
 
-    removeOneTrace = () => {
-        console.log('removeOneTrace()');
-        this.props.removeTrace();
-    }
-
-    addSomeAsyncInfo = () => {
-        console.log('addAsyncInfo');
-        this.props.addAsyncInfo();
-    }
     render() {
         return (
             <>
-                <h1>
-                    Product: EDR
-                </h1>
-                {this.getTracesSize() > 0 ? <p>We have {this.props.trace.traces.length} traces</p> :
-                    <p>We have no traces.</p>}
                 <p>
-                    <button className="button" onClick={this.addOneTrace}>Add Trace</button>
+                    Rig Info: {this.props.rigInfo.info}
+                </p>
+                {this.getMemosSize() > 0 ? <p>We have {this.props.memo.memos.length} memos</p> :
+                    <p>We have no memos.</p>}
+                <p>
+                    <button className="button" onClick={this.props.getMemo}>Get Memo</button>
                 </p>
                 <p>
-                    <button className="button" onClick={this.removeOneTrace}>Remove Trace</button>
+                    <button className="button" onClick={this.props.removeMemo}>Remove Memo (from client)</button>
                 </p>
-                <p>
-                    <button className="button" onClick={this.addSomeAsyncInfo}>Add Async Info</button>
-                </p>
-                <ol>{this.getTraceList()}</ol>
+                <ul>{this.renderMemoList()}</ul>
             </>
         )
     };
@@ -69,13 +60,14 @@ class App extends React.Component<AppProps> {
 
 
 const mapStateToProps = (appState: AppState) => ({
-    trace: appState.traceReducer,
+    memo: appState.memoReducer,
+    rigInfo: appState.rigInfoReducer,
 })
 
 const mapDispatchToProps = {
-    addTrace: AddTraceActionCreator,
-    removeTrace: RemoveTraceActionCreator,
-    addAsyncInfo: AsyncActionCreator,
+    getMemo: GetMemoAsyncDispatchCreator,
+    removeMemo: RemoveMemoActionCreator,
+    getRigInfo: GetRigInfoAsyncDispatchCreator,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

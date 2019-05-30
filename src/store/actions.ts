@@ -1,36 +1,48 @@
-import { ADD_TRACE, REMOVE_TRACE } from "./types";
-import { Action } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { AppState } from "./index";
+import {GET_MEMO, REMOVE_MEMO, GET_RIG_INFO, MemoType, MemoResponseType} from "./types";
+import {Action} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {AppState} from "./index";
+import {pdsaGetMemos, pdsaGetRigInfo} from "../connector/pdsa";
 
-export function AddTraceActionCreator(newTrace: string) {
+export function GetMemoActionCreator(memoResponse: MemoResponseType) {
     return {
-        type: ADD_TRACE,
-        payload: newTrace,
+        type: GET_MEMO,
+        payload: memoResponse,
     };
 }
 
-export function RemoveTraceActionCreator() {
+export function RemoveMemoActionCreator() {
     return {
-        type: REMOVE_TRACE,
+        type: REMOVE_MEMO,
     };
 }
 
-export function AsyncActionCreator(): ThunkAction<void, AppState, null, Action<string>> {
+
+export function GetRigInfoActionCreator(info: string) {
+    return {
+        type: GET_RIG_INFO,
+        payload: info,
+    };
+}
+
+export function GetMemoAsyncDispatchCreator(): ThunkAction<void, AppState, null, Action<string>> {
     return async dispatch => {
-        const asyncResp = await httpGet('http://localhost:3000/manifest.json');
+        const asyncResp:string = await pdsaGetMemos();
+
+        const memoResponse: MemoResponseType = JSON.parse(asyncResp);
+
         dispatch(
-            AddTraceActionCreator(asyncResp)
+            GetMemoActionCreator(memoResponse)
         );
     }
 };
 
-async function httpGet(url: string): Promise<string> {
-    return fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.statusText)
-            }
-            return response.text() as Promise<string>
-        })
-}
+export function GetRigInfoAsyncDispatchCreator(): ThunkAction<void, AppState, null, Action<string>> {
+    return async dispatch => {
+        const asyncResp = await pdsaGetRigInfo();
+        dispatch(
+            GetRigInfoActionCreator(asyncResp)
+        );
+    }
+};
+

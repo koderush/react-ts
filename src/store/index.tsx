@@ -1,10 +1,11 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunkMiddleware from "redux-thunk";
-import {TraceReducer} from "./reducers";
+import {MemoReducer, RigInfoReducer} from "./reducers";
 
 const rootReducer = combineReducers({
-    traceReducer: TraceReducer,
+    memoReducer: MemoReducer,
+    rigInfoReducer: RigInfoReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
