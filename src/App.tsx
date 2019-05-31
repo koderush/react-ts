@@ -1,16 +1,16 @@
 import React from 'react';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import './index.css';
-import {RigInfoState, MemoState, RealtimeState} from "./store/types";
-import {AppState} from "./store";
+import { RigInfoState, MemoState, RealtimeState } from "./store/types";
+import { AppState } from "./store";
 import {
     RemoveMemoActionCreator,
     GetMemoAsyncDispatchCreator,
     GetRigInfoAsyncDispatchCreator,
     UpdateRealtimeActionCreator
 } from "./store/actions";
-import {MemoType} from "./connector/pdsaTypes";
-import {RealtimeUpdater} from "./connector/pdsa";
+import { MemoType, RealtimeValueType } from "./connector/pdsaTypes";
+import { RealtimeUpdater } from "./connector/pdsa";
 
 interface AppProps {
     removeMemo: typeof RemoveMemoActionCreator;
@@ -27,7 +27,7 @@ class App extends React.Component<AppProps> {
         return this.props.memo.memos.length;
     }
 
-    renderMemoList() {
+    renderMemos() {
         return (
             <>
                 {
@@ -38,11 +38,24 @@ class App extends React.Component<AppProps> {
         )
     };
 
+    renderRealtime() {
+        if (this.props.realtime.realtimeValues) {
+            return (
+                <>
+                    {
+                        this.props.realtime.realtimeValues.map((realtime: RealtimeValueType, index: number) =>
+                            <li key={`k-${index}`}>{realtime.identifier}: {realtime.value}</li>)
+                    }
+                </>
+            )
+        }
+    };
+
     componentDidMount() {
         // This is to demo automatically get rig info when the page is loaded.
         this.props.getRigInfo();
 
-        const realtimeUpdater = new RealtimeUpdater();
+        new RealtimeUpdater(this.props.updateRealtime);
     }
 
     render() {
@@ -58,6 +71,13 @@ class App extends React.Component<AppProps> {
                     </ul>
                 </div>
 
+                <div>
+                    <p> Realtime:</p>
+                    <ul>
+                        {this.renderRealtime()}
+                    </ul>
+                </div>
+
                 <p>We have {this.props.memo.memos.length} memos</p>
 
                 <p>
@@ -66,7 +86,7 @@ class App extends React.Component<AppProps> {
                 <p>
                     <button className="button" onClick={this.props.removeMemo}>Remove Memo (from client)</button>
                 </p>
-                <ul>{this.renderMemoList()}</ul>
+                <ul>{this.renderMemos()}</ul>
             </>
         )
     };

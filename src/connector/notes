@@ -145,93 +145,75 @@ function withId(id) {
    }
 }
 
----- realtime response ----
-{
-   "messageTime":1559258710282,
-   "requestId":"1559258710202",
+---- realtime message ----
+{  
+   "messageTime":1559286336000,
+   "requestId":"1559286336000",
    "service":"realtimedata",
-   "detail":{
-      "messageType":"RealTimeDataSubscriptionResponse",
-      "status":200,
-      "statusMessage":"Ok",
+   "detail":{  
+      "messageType":"RealTimeDataChange",
       "domainType":"time",
       "resolution":1000.0,
-      "channels":[
-         {
-            "identifier":"Channel.EDR.HOLE_DEPTH",
-            "summarization":"MAX"
-         },
-         {
+      "values":[  
+         {  
             "identifier":"Channel.EDR.BIT_DEPTH",
-            "summarization":"MAX"
+            "summarization":"max",
+            "value":9486.314453125
          },
-         {
-            "identifier":"Channel.EDR.HOOK_LOAD",
-            "summarization":"MAX"
-         },
-         {
-            "identifier":"Channel.EDR.STROKES_1",
-            "summarization":"MAX"
-         },
-         {
-            "identifier":"Channel.EDR.ROTARY",
-            "summarization":"MAX"
-         },
-         {
-            "identifier":"Channel.EDR.WT_ON_BIT",
-            "summarization":"MAX"
-         },
-         {
-            "identifier":"Channel.EDR.ROP",
-            "summarization":"MAX"
-         },
-         {
-            "identifier":"Channel.EDR.FLOW",
-            "summarization":"MAX"
-         },
-         {
-            "identifier":"Channel.EDR.TOTAL_MUD",
-            "summarization":"MAX"
-         },
-         {
-            "identifier":"Channel.EDR.TRIP_MUD",
-            "summarization":"MAX"
-         },
-         {
-            "identifier":"Channel.EDR.PUMP_RATE",
-            "summarization":"MAX"
-         },
-         {
+         {  
             "identifier":"Channel.EDR.BLOCK_HT",
-            "summarization":"MAX"
+            "summarization":"max",
+            "value":86.1772766113281
          },
-         {
-            "identifier":"Channel.EDR.BIT_HOURS",
-            "summarization":"MAX"
+         {  
+            "identifier":"Channel.EDR.FLOW",
+            "summarization":"max",
+            "value":50.0
          },
-         {
-            "identifier":"Channel.EDR.CIRC_HOURS",
-            "summarization":"MAX"
+         {  
+            "identifier":"Channel.EDR.HOLE_DEPTH",
+            "summarization":"max",
+            "value":9486.314453125
          },
-         {
-            "identifier":"Channel.EDR.GAMMA",
-            "summarization":"MAX"
+         {  
+            "identifier":"Channel.EDR.HOOK_LOAD",
+            "summarization":"max",
+            "value":18.274019241333
          },
-         {
-            "identifier":"Channel.EDR.MUD_GAIN_LOSS",
-            "summarization":"MAX"
+         {  
+            "identifier":"Channel.EDR.PUMP_RATE",
+            "summarization":"max",
+            "value":0.77745532989502
          },
-         {
-            "identifier":"Channel.EDR.DIFF_PRESS",
-            "summarization":"MAX"
+         {  
+            "identifier":"Channel.EDR.ROP",
+            "summarization":"max",
+            "value":17.695104598999
          },
-         {
-            "identifier":"Channel.EDR.PASON_GAS",
-            "summarization":"MAX"
+         {  
+            "identifier":"Channel.EDR.ROTARY",
+            "summarization":"max",
+            "value":92.7018280029297
          },
-         {
-            "identifier":"Channel.EDR.TOOLFACE",
-            "summarization":"MAX"
+         {  
+            "identifier":"Channel.EDR.STROKES_1",
+            "summarization":"max",
+            "value":61.8971633911133
+         },
+         {  
+            "identifier":"Channel.EDR.TOTAL_MUD",
+            "summarization":"max",
+            "value":1006.79528808594
+         },
+         {  
+            "identifier":"Channel.EDR.TRIP_MUD",
+            "summarization":"max",
+            "value":58.3641738891602
+         },
+         {  
+            "identifier":"Channel.EDR.WT_ON_BIT",
+            "summarization":"max",
+            "value":11.725980758667
          }
       ]
    }

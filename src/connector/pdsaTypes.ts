@@ -43,9 +43,20 @@ export interface RigActivityResponseType {
 
 export interface RealtimeValueType {
     value: number;
-    name: string;
+    identifier: string;
+    summarization: string;
+}
+
+export interface RealtimeMessageDetailType {
+    messageType: string;
+    domainType: string;
+    resolution: number;
+    values: RealtimeValueType[];
 }
 
 export interface RealtimeMessageType {
-    values: RealtimeValueType[];
+    messageTime: number;
+    requestId: string;
+    service: string;
+    detail: RealtimeMessageDetailType;
 }

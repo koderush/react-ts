@@ -73,7 +73,7 @@ export function RealtimeReducer(
     switch (action.type) {
         case UPDATE_REALTIME:
             return {
-                realtimeValues: action.payload.values,
+                realtimeValues: action.payload.detail.values,
             };
         default:
             return state;

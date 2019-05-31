@@ -1,4 +1,5 @@
 import { PDSA_GET_ALL_MEMOS, PDSA_GET_RIGACTIVITY, PDSA_REALTIME_SUBSCRIPTION } from "./consts";
+import { RealtimeMessageType } from "./pdsaTypes"
 
 export async function pdsaGetMemos(): Promise<string> {
     return pdsaGet(PDSA_GET_ALL_MEMOS);
@@ -22,7 +23,9 @@ export class RealtimeUpdater {
 
     websocket: WebSocket;
 
-    constructor() {
+    updateRealtime: any;
+
+    constructor(updateRealtime: any) {
         this.websocket = new WebSocket(PDSA_REALTIME_SUBSCRIPTION);
 
         this.websocket.onclose = function () {
@@ -33,7 +36,10 @@ export class RealtimeUpdater {
 
         this.websocket.onmessage = function (msg) {
 
-            console.log(msg.data);
+            // console.log(msg.data);
+
+            const realtimeMessage: RealtimeMessageType = JSON.parse(msg.data);
+            updateRealtime(realtimeMessage);
         };
     }
 
