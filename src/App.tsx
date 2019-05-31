@@ -1,21 +1,25 @@
 import React from 'react';
 import {connect} from "react-redux";
 import './index.css';
-import {RigInfoState, MemoState} from "./store/types";
+import {RigInfoState, MemoState, RealtimeState} from "./store/types";
 import {AppState} from "./store";
 import {
     RemoveMemoActionCreator,
     GetMemoAsyncDispatchCreator,
-    GetRigInfoAsyncDispatchCreator
+    GetRigInfoAsyncDispatchCreator,
+    UpdateRealtimeActionCreator
 } from "./store/actions";
 import {MemoType} from "./connector/pdsaTypes";
+import {RealtimeUpdater} from "./connector/pdsa";
 
 interface AppProps {
     removeMemo: typeof RemoveMemoActionCreator;
     getMemo: any;
     getRigInfo: any;
+    updateRealtime: any;
     memo: MemoState;
     rigInfo: RigInfoState;
+    realtime: RealtimeState;
 }
 
 class App extends React.Component<AppProps> {
@@ -37,6 +41,8 @@ class App extends React.Component<AppProps> {
     componentDidMount() {
         // This is to demo automatically get rig info when the page is loaded.
         this.props.getRigInfo();
+
+        const realtimeUpdater = new RealtimeUpdater();
     }
 
     render() {
@@ -70,12 +76,14 @@ class App extends React.Component<AppProps> {
 const mapStateToProps = (appState: AppState) => ({
     memo: appState.memoReducer,
     rigInfo: appState.rigInfoReducer,
+    realtime: appState.realtimeReducer,
 })
 
 const mapDispatchToProps = {
     getMemo: GetMemoAsyncDispatchCreator,
     removeMemo: RemoveMemoActionCreator,
     getRigInfo: GetRigInfoAsyncDispatchCreator,
+    updateRealtime: UpdateRealtimeActionCreator,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

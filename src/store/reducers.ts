@@ -1,5 +1,6 @@
 import {
-    GET_MEMO, REMOVE_MEMO, MemoActionTypes, MemoState, RigInfoState, RigInfoActionType, GET_RIG_INFO
+    GET_MEMO, REMOVE_MEMO, MemoActionTypes, MemoState, RigInfoState, RigInfoActionType,
+    GET_RIG_INFO, RealtimeState, UPDATE_REALTIME, UpdateRealtimeActionType
 } from "./types";
 
 const initialMemoState: MemoState = {
@@ -28,6 +29,11 @@ const initialRigInfoState: RigInfoState = {
     },
 };
 
+const initialRealtimeState: RealtimeState = {
+    realtimeValues: [],
+};
+
+
 export function MemoReducer(
     state = initialMemoState,
     action: MemoActionTypes
@@ -54,6 +60,20 @@ export function RigInfoReducer(
         case GET_RIG_INFO:
             return {
                 info: action.payload.wellSite,
+            };
+        default:
+            return state;
+    }
+}
+
+export function RealtimeReducer(
+    state = initialRealtimeState,
+    action: UpdateRealtimeActionType
+): RealtimeState {
+    switch (action.type) {
+        case UPDATE_REALTIME:
+            return {
+                realtimeValues: action.payload.values,
             };
         default:
             return state;

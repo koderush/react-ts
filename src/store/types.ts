@@ -1,7 +1,11 @@
-import {MemoResponseType, MemoType, RigActivityResponseType, WellSiteType} from "../connector/pdsaTypes";
+import {
+    MemoResponseType, MemoType, RigActivityResponseType, WellSiteType, RealtimeValueType, RealtimeMessageType
+} from "../connector/pdsaTypes";
 
 export const GET_MEMO = "ADD_MEMO";
 export const REMOVE_MEMO = "REMOVE_MEMO";
+export const UPDATE_REALTIME = "UPDATE_REALTIME";
+export const GET_RIG_INFO = "GET_RIG_INFO";
 
 export interface GetMemoActionType {
     type: typeof GET_MEMO;
@@ -18,8 +22,6 @@ export interface MemoState {
 
 export type MemoActionTypes = GetMemoActionType | RemoveMemoActionType;
 
-// RigInfo
-export const GET_RIG_INFO = "GET_RIG_INFO";
 
 export interface RigInfoActionType {
     type: typeof GET_RIG_INFO;
@@ -28,5 +30,14 @@ export interface RigInfoActionType {
 
 export interface RigInfoState {
     info: WellSiteType;
+}
+
+export interface UpdateRealtimeActionType {
+    type: typeof UPDATE_REALTIME;
+    payload: RealtimeMessageType;
+}
+
+export interface RealtimeState {
+    realtimeValues: RealtimeValueType[];
 }
 

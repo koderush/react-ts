@@ -1,0 +1,238 @@
+--------- index.html ---------
+<html>
+
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<title>RDD Service Testing</title>
+</head>
+
+<body>
+	<div id='websocket_content'>--</div>
+
+	<script src="websocket.js"></script>
+
+</body>
+
+</html>
+
+--------- websocket.js --------
+//Establish the WebSocket connection
+var webSocket = new WebSocket("ws://kyou-w10:38080/rdd/");
+
+webSocket.onclose = function () {
+    alert("WebSocket connection closed");
+};
+
+webSocket.onopen = function () {
+    var request = {
+        "messageType": "SubscriptionRequest",
+        "clientName": "Browser Test Client",
+        "clientVersion": "0.0.1",
+        "traces": [
+            "Channel.EDR.HOLE_DEPTH",
+            "Channel.EDR.FLOW",
+            "Channel.EDR.TOTAL_MUD",
+            "Channel.EDR.PV_ESTIMATE",
+            "Channel.EDR.FLOW_2",
+            "Channel.EDR.AMAP_INFO_1",
+            "Channel.EDR.AMAP_INFO_2"
+        ],
+    };
+
+    webSocket.send(JSON.stringify(request));
+};
+
+webSocket.onmessage = function (msg) {
+
+    withId('websocket_content').innerHTML = msg.data;
+};
+
+
+// Helper function for selecting element by id
+function withId(id) {
+    return document.getElementById(id);
+}
+
+-------- realtime subscription -
+{
+   "requestId":1559258710202,
+   "messageTime":1559258710202,
+   "service":"realtimedata",
+   "detail":{  
+      "messageType":"RealTimeDataSubscriptionRequest",
+      "modificationType":"add",
+      "channels":[  
+         {  
+            "identifier":"Channel.EDR.HOLE_DEPTH",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.BIT_DEPTH",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.HOOK_LOAD",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.STROKES_1",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.ROTARY",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.WT_ON_BIT",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.ROP",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.FLOW",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.TOTAL_MUD",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.TRIP_MUD",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.PUMP_RATE",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.BLOCK_HT",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.BIT_HOURS",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.CIRC_HOURS",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.GAMMA",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.MUD_GAIN_LOSS",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.DIFF_PRESS",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.PASON_GAS",
+            "summarization":"MAX"
+         },
+         {  
+            "identifier":"Channel.EDR.TOOLFACE",
+            "summarization":"MAX"
+         }
+      ],
+      "domainType":"time",
+      "resolution":1000
+   }
+}
+
+---- realtime response ----
+{
+   "messageTime":1559258710282,
+   "requestId":"1559258710202",
+   "service":"realtimedata",
+   "detail":{
+      "messageType":"RealTimeDataSubscriptionResponse",
+      "status":200,
+      "statusMessage":"Ok",
+      "domainType":"time",
+      "resolution":1000.0,
+      "channels":[
+         {
+            "identifier":"Channel.EDR.HOLE_DEPTH",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.BIT_DEPTH",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.HOOK_LOAD",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.STROKES_1",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.ROTARY",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.WT_ON_BIT",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.ROP",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.FLOW",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.TOTAL_MUD",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.TRIP_MUD",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.PUMP_RATE",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.BLOCK_HT",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.BIT_HOURS",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.CIRC_HOURS",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.GAMMA",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.MUD_GAIN_LOSS",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.DIFF_PRESS",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.PASON_GAS",
+            "summarization":"MAX"
+         },
+         {
+            "identifier":"Channel.EDR.TOOLFACE",
+            "summarization":"MAX"
+         }
+      ]
+   }
+}

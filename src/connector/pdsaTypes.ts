@@ -40,3 +40,12 @@ export interface RigActivityResponseType {
     wellVisit: any;
     wellBore: any;
 }
+
+export interface RealtimeValueType {
+    value: number;
+    name: string;
+}
+
+export interface RealtimeMessageType {
+    values: RealtimeValueType[];
+}
